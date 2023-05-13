@@ -6,36 +6,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { add, employeesReceived, remove } from '../store/features/employees'
 import * as actions from '../store/features/api'
 
-
-
 function Dashboard() {
-    const employees = useSelector(state => state.employees);
-    const dispatch = useDispatch();
-    
-    useEffect(() => {
-       dispatch(actions.apiCallBegan({
-        url: '/employees',
-        onSuccess: 'employees/employeesReceived'
-       }))
-
-    //    dispatch(add({
-    //     name: "Shwawn1",
-    //     email: "shawnb@gmail.com",
-    //     phone: "0878 099 787"             
-    //    })) 
-
-      
-
-    }, [dispatch])
-    
+  
 
   return (    
-    <div className=" font-sans leading-normal tracking-normal mt-12">
+    <div className="">
     <Header />
     <main>
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-row">
             <Sidebar />
-            <Main employees={ employees } />
+            <Main />
         </div>
     </main> 
     </div>
