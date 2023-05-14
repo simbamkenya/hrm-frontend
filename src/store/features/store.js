@@ -1,15 +1,22 @@
-import { configureStore } from "@reduxjs/toolkit";
-// import reducer from "./employees";
-// import eventsReducer from "./events";
-// import projectsReducer from "./projects";
-// import clientsReducer from "./clients";
-import projectsReducer from "./projects"
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import employees from "./employees";
+import events from "./events";
+import projects from "./projects";
+import clients from "./clients";
 import logger from "./middleware/logger";
 import api from "./middleware/api";
 
+const reducer = combineReducers({
+  employees,
+  events,
+  projects,
+  clients,
+});
+
 const store = configureStore({
-    reducer: projectsReducer,
+    reducer,
     middleware: [api]
-})
+});
+
 
 export default store;

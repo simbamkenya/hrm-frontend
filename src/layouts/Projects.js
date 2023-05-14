@@ -16,7 +16,7 @@ function Projects() {
   return (
     <div>
       <h1>Projects</h1>
-      {projects.map(project => (
+      {projects.projects.map(project => (
         <h1>{project.projectName}</h1>
       ))}
     </div>

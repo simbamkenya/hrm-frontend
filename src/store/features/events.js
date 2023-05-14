@@ -3,9 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const eventSlice = createSlice({
     name: 'events',
     initialState: {
-        events: [{
-            eventName: 'Dance with Pac'
-        }]
+        events: [],
+        loading: false
     },
     reducers: {
         eventsReceived: (state, action) => {

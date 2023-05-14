@@ -83,11 +83,11 @@ function Sidebar() {
                 ></path>
                 </svg>
             </span>
-            <a href="#">
-                <span class="ml-2">Team</span>
-            </a>
+            <Link to="/clients">
+                <span class="ml-2">Clients</span>
+            </Link>
             </li>
-            <li class="mb-2 px-4 py-4 text-gray-100 flex flex-row  border-gray-300 hover:text-black   hover:bg-gray-300  hover:font-bold rounded rounded-lg">
+            {/* <li class="mb-2 px-4 py-4 text-gray-100 flex flex-row  border-gray-300 hover:text-black   hover:bg-gray-300  hover:font-bold rounded rounded-lg">
             <span>
                 <svg class="fill-current h-5 w-5 " viewBox="0 0 24 24">
                 <path
@@ -100,7 +100,7 @@ function Sidebar() {
             <a href="#">
                 <span class="ml-2">Tasks</span>
             </a>
-            </li>
+            </li> */}
         </ul>
         </div>
     </nav>
