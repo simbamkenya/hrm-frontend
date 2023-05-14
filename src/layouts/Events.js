@@ -19,7 +19,7 @@ function Events() {
   return (
     <div>
         <h1>Events List</h1>
-        {events.map(event => (<p>{event.eventName}</p>))}
+        {/* {events.map(event => (<p>{event.eventName}</p>))} */}
     </div>
   )
 }
