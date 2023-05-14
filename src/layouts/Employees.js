@@ -24,7 +24,7 @@ function Employees() {
     const handleChange = (e) => {
         setVisible(!isVisible)
     }
-    console.log(isVisible)
+    
   return (
     <div>
         <div id="main" className="bg-gray-100 mt-12 md:mt-2">
