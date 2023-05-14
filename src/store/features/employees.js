@@ -1,27 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
 
-const API_URL = "http://localhost:3000/employees";
+// const API_URL = "http://localhost:3000/employees";
 
 const employeeSlice = createSlice({
     name: 'employees',
     initialState: {
-        employees: [
-            // {
-            //     name: 'Caleb',
-            //     email: 'caleb@gmail.com',
-            //     phone: '0877 099 787'
-            // },
-            // {
-            //     name: 'James',
-            //     email: 'james@gmail.com',
-            //     phone: '0877 099 787'
-            // },
-            // {
-            //     name: 'Ann',
-            //     email: 'ann@gmail.com',
-            //     phone: '0777 099 787'
-            // },
+        employees: [        
         ]
     },
     reducers: {
@@ -30,7 +14,7 @@ const employeeSlice = createSlice({
         }, 
         add: (state, action) => {
             state.employees.push({
-                name: action.payload.name,
+                firstName: action.payload.firstName,
                 email: action.payload.email,
                 phone: action.payload.phone,
             })
