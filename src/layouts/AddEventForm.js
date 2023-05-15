@@ -1,40 +1,35 @@
-import React, { useState } from 'react'
+import React, { useState} from 'react';
 import { useDispatch } from 'react-redux';
-import { add } from '../store/features/employees';
+import { add } from '../store/features/events';
 import axios from 'axios';
 
-function AddEmployeesForm({ isVisible, onClose }) {
+function AddEventForm({ onClose, isVisible }) {
     const dispatch = useDispatch()
-     
+
     const initialState = {
-        email: '',
-        firstName: '',
-        lastName: '',
+        duration: "",
+        eventName: "",
+        location: "", 
+        eventDate: "",
+        eventTime: ""
     }
-  const [employeeData, setEmployeeData] = useState(initialState);
-    console.log('formdata', employeeData)
+
+  const [eventData, setEventData] = useState(initialState);
+    console.log('formdata', eventData)
 
   const handleInputChange = (e) => {
     const {name, value} = e.target;
-    setEmployeeData((prev) => {
+    setEventData((prev) => {
         return {...prev, [name] : value}
     });
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // dispatch(add({
-    //     firstName: "Shwawn1",
-    //     lastName: "Mike",
-    //     email: "shawnb@gmail.com"           
-    //    })) 
-
-    dispatch(add(employeeData))
+    console.log('submiting event')
+    dispatch(add(eventData))
     
-   await axios.post('http://localhost:3000/employees', employeeData)
-
-    console.log(employeeData)
-    // dispatch(add(employeeData))
+   await axios.post('http://localhost:3000/events', eventData)
+   console.log(eventData)
   }
 
   return (
@@ -45,7 +40,7 @@ function AddEmployeesForm({ isVisible, onClose }) {
             {/* <!-- Modal header --> */}
             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Add Employee
+                    Add Event
                 </h3>
                 <button type="button" onClick={() => onClose(false)}  class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -58,13 +53,13 @@ function AddEmployeesForm({ isVisible, onClose }) {
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                     <label class="block text-gray-500 md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                        First Name
+                        Event Name
                     </label>
                     </div>
                     <div class="md:w-2/3">
-                    <input  class=" appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" placeholder="First Name"
-                     value={employeeData.firstName}
-                     name="firstName"
+                    <input  class=" appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" placeholder="Event Name"
+                     value={eventData.eventName}
+                     name="eventName"
                      onChange={handleInputChange}
                     />
                     </div>
@@ -72,24 +67,43 @@ function AddEmployeesForm({ isVisible, onClose }) {
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                     <label class="block text-gray-500 md:text-right mb-1 md:mb-0 pr-4" for="inline-password">
-                        Last Name
+                        Event Date
                     </label>
                     </div>
                     <div class="md:w-2/3">
-                    <input  onChange={handleInputChange} value={employeeData.lastName} name="lastName" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-password" type="text" placeholder="last name"/>
+                    <input  onChange={handleInputChange} value={eventData.eventDate} name="eventDate" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-password" type="text" placeholder="Event Date"/>
                     </div>
                 </div>
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                     <label class="block text-gray-500 md:text-right mb-1 md:mb-0 pr-4" for="inline-password">
-                        Email Address
+                        Event Time
                     </label>
                     </div>
                     <div class="md:w-2/3">
-                    <input  onChange={handleInputChange} value={employeeData.email} name="email" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-password" type="text" placeholder="email"/>
+                    <input  onChange={handleInputChange} value={eventData.eventTime} name="eventTime" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-password" type="text" placeholder="Event Time"/>
                     </div>
                 </div>
-               
+                <div class="md:flex md:items-center mb-6">
+                    <div class="md:w-1/3">
+                    <label class="block text-gray-500 md:text-right mb-1 md:mb-0 pr-4" for="inline-password">
+                        Duration
+                    </label>
+                    </div>
+                    <div class="md:w-2/3">
+                    <input  onChange={handleInputChange} value={eventData.duration} name="duration" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-password" type="text" placeholder="Duration"/>
+                    </div>
+                </div>
+                <div class="md:flex md:items-center mb-6">
+                    <div class="md:w-1/3">
+                    <label class="block text-gray-500 md:text-right mb-1 md:mb-0 pr-4" for="inline-password">
+                        Location
+                    </label>
+                    </div>
+                    <div class="md:w-2/3">
+                    <input  onChange={handleInputChange} value={eventData.location} name="location" class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-password" type="text" placeholder="Location"/>
+                    </div>
+                </div>
                 </form>
             </div>
             {/* <!-- Modal footer --> */}
@@ -103,4 +117,4 @@ function AddEmployeesForm({ isVisible, onClose }) {
   )
 }
 
-export default AddEmployeesForm
+export default AddEventForm

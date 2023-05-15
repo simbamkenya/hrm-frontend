@@ -4,7 +4,7 @@ import * as actions from '../api'
 
 const api = ({ dispatch }) => next => async action => {
     // console.log('actiontype', actions.apiCallBegan.type)
-    // console.log('apiaction', action)
+    console.log('apiaction', action)
     
     if(action.type !== actions.apiCallBegan.type) {
         return next(action);  

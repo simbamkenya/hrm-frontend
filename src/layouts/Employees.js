@@ -13,12 +13,7 @@ function Employees() {
        dispatch(actions.apiCallBegan({
         url: '/employees',
         onSuccess: 'employees/employeesReceived'
-       }))
-
-    // dispatch(actions.apiCallBegan({
-    //     url: '/events',
-    //     onSuccess: 'events/eventsReceived'
-    //    }))    
+       }))   
     }, [dispatch])
 
     const handleChange = (e) => {

@@ -11,8 +11,8 @@ const eventSlice = createSlice({
             console.log('events receivved')
             state.events = action.payload;
         },
-        addEvent: (state, action) => {
-
+        add: (state, action) => {
+            
         }
     }
 })
@@ -20,7 +20,7 @@ const eventSlice = createSlice({
 
 const { actions, reducer } = eventSlice;
 
-export const { eventsReceived } = actions;
+export const { add, eventsReceived } = actions;
 export default reducer;
 
 
