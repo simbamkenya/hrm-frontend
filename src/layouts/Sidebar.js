@@ -4,18 +4,12 @@ import { Outlet, Link } from "react-router-dom";
 function Sidebar() {
   return (
     <nav class="flex flex-col bg-purple-900 w-64 h-screen px-4 tex-gray-900 border border-purple-900">
-        <div class="flex flex-wrap mt-8">
-        <div class="w-1/2">
-            <img
-            src="https://randomuser.me/api/portraits/women/27.jpg"
-            class="mx-auto w-20 h-20 rounded-full"
-            />
+        <div class="flex flex-wrap mt-8 items-center">
+        <div className="h-24 w-24 rounded"> 
+            <img src="hrm-logo.png"></img>
         </div>
-        <div class="w-1/2">
-            <span class="font-semibold text-white">Ava Harper</span>
-            <button class="bg-green-500 text-white px-4 py-2 rounded-md border border-blue-500 hover:bg-white hover:text-green-500">
-            Premium
-            </button>
+        <div class="ml-4">
+            <span class="font-semibold text-white">TECH HRM</span>
         </div>
         </div>
         <div class="mt-10 mb-4">

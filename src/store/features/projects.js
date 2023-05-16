@@ -11,7 +11,6 @@ const projectSlice = createSlice({
             state.projects = action.payload;
         },
         add: (state, action) => {
-            console.log(action)
             state.projects.push({
                 projectName: action.payload.projectName,
                 hours: action.payload.hours,

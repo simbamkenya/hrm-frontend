@@ -26,11 +26,8 @@ function AddProjectForm({ onClose, isVisible }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('submiting event')
-    // dispatch(add(projectData))
-    
-   await axios.post('http://localhost:3000/projects', projectData)
-   console.log(projectData)
+    await axios.post('http://localhost:3000/projects', projectData)
+    dispatch(add(projectData))
   }
 
   return (

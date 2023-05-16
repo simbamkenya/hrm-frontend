@@ -12,7 +12,13 @@ const eventSlice = createSlice({
             state.events = action.payload;
         },
         add: (state, action) => {
-            
+            state.events.push({
+                duration: action.payload.duration,
+                eventName: action.payload.eventName,
+                location: action.payload.location, 
+                eventDate: action.payload.eventDate,
+                eventTime: action.payload.eventTime
+            })
         }
     }
 })

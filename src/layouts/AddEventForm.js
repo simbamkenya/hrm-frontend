@@ -24,12 +24,9 @@ function AddEventForm({ onClose, isVisible }) {
     });
   }
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log('submiting event')
-    dispatch(add(eventData))
-    
+   e.preventDefault();
    await axios.post('http://localhost:3000/events', eventData)
-   console.log(eventData)
+   dispatch(add(eventData))
   }
 
   return (

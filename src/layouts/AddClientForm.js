@@ -28,12 +28,11 @@ function AddClientForm({ isVisible, onClose }) {
         address: "287 St Kenya",
         hourlyRate: 48,         
        })) 
-    dispatch(add(clientData))
-
+    
     await axios.post('http://localhost:3000/clients', clientData)
-    console.log('p',clientData)
+    dispatch(add(clientData))    
   }
-// 
+
   return (
     <div style={{ visibility:  !isVisible ? "hidden" : "visible"}} className="bg-green-500 border-red-500 fixed top-0 left-0 right-20 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">       
     <div class="relative w-full max-w-2xl max-h-full">

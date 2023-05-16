@@ -19,8 +19,8 @@ const employeeSlice = createSlice({
                 phone: action.payload.phone,
             })
         },
-        remove: (state, action) => {
-            // state.employees.filter(employee.name ==! a)
+        deleteEmployee: (state, action) => {
+            state.employees = state.employees.filter(employee => employee._id !== action.payload)
         },
        
     }
@@ -30,5 +30,5 @@ const employeeSlice = createSlice({
 
 
 const { actions, reducer } = employeeSlice;
-export const { add, remove, employeesReceived } = actions;
+export const { add, deleteEmployee, employeesReceived } = actions;
 export default reducer;
