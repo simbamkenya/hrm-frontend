@@ -11,7 +11,6 @@ import LandingPage from './layouts/LandingPage'
 function App() {
 
   return (
-    // <Dashboard />
     <Routes>
       {/* <Route path="/home" element={<LandingPage />}></Route> */}
       <Route path="/" element={<Dashboard />} >

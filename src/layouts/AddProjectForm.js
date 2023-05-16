@@ -32,7 +32,7 @@ function AddProjectForm({ onClose, isVisible }) {
 
   return (
     <div style={{ visibility:  !isVisible ? "hidden" : "visible"}} className="bg-green-500 border-red-500 fixed top-0 left-0 right-20 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">       
-        <div class="relative w-full max-w-2xl max-h-full">
+        <div class="relative w-full max-w-2xl max-h-full mx-auto py-12">
         {/* <!-- Modal content --> */}
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             {/* <!-- Modal header --> */}

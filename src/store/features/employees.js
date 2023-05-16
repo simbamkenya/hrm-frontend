@@ -16,12 +16,23 @@ const employeeSlice = createSlice({
             state.employees.push({
                 firstName: action.payload.firstName,
                 email: action.payload.email,
-                phone: action.payload.phone,
+                lastName: action.payload.lastName,
             })
         },
         deleteEmployee: (state, action) => {
-            state.employees = state.employees.filter(employee => employee._id !== action.payload)
+            state.employees = state.employees.filter((employee) => employee._id !== action.payload._id)
         },
+        updateEmployee: (state, action) => {
+            console.log('update', action)
+            // state.employees = state.employees.map(employee => employee._id === action.payload._id ? {
+            //     firstName: action.payload.firstName,
+            //     email: action.payload.email,
+            //     lastName: action.payload.lastName,
+            //  } : employee)
+        },
+        fetchEmployee: (state, action) => {
+            console.log('single', action)
+        }
        
     }
 });
@@ -30,5 +41,5 @@ const employeeSlice = createSlice({
 
 
 const { actions, reducer } = employeeSlice;
-export const { add, deleteEmployee, employeesReceived } = actions;
+export const { add, deleteEmployee, updateEmployee, employeesReceived, fetchEmployee } = actions;
 export default reducer;

@@ -4,41 +4,48 @@ import { useEffect } from 'react';
 import * as actions from '../store/features/api'
 import AddEmployeesForm from './AddEmployeesForm';
 import axios from 'axios';
+import { updateEmployee } from '../store/features/employees';
 
 function Employees() {
     const employees = useSelector(state => state.employees);
     const dispatch = useDispatch();
-    const [isVisible, setVisible] = useState(false)
+    const [isVisible, setVisible] = useState(false);
+    const [selectedEmployee, setSelectedEmployee] = useState('');
     
     useEffect(() => {
        dispatch(actions.apiCallBegan({
         url: '/employees',
         onSuccess: 'employees/employeesReceived'
        }))   
+    //    dispatch(updateEmployee({
+    //     email: 'simba@gmail.com',
+    //     firstName: 'Simba',
+    //     lastName: 'Mkenya',
+    //    }))
     }, [dispatch])
 
     const handleChange = (e) => {
         setVisible(!isVisible)
     }
-
+    
     const deleteEmployee = async (employeeId) => {
-        await axios.delete(`http://localhost:3000/employees/${employeeId}`);
         dispatch(actions.apiCallBegan({
-            url: `/employees${employeeId}`,
+            url: `/employees/${employeeId}`,
+            method: 'delete',
             onSuccess: 'employees/deleteEmployee'
            })) 
-        // dispatch(deleteEmployee(employeeId))
     }
-    
+      
   return (
     <div>
         <div id="main" className="bg-gray-100 mt-12 md:mt-2">
         <div className="min-h-full w-full bg-gray-600 text-white p-4">
-        <AddEmployeesForm isVisible={isVisible} onClose={setVisible}/>
+        <AddEmployeesForm isVisible={isVisible} onClose={setVisible} selectedEmployee={selectedEmployee}/>
+
         <div className="flex py-2">
             <h1>Employees List</h1>
             {/* <!-- Modal toggle --> */}
-            <button onClick={handleChange}   class=" ml-auto block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+            <button onClick={handleChange}   class="ml-auto block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
             Add Employee
             </button>
         </div>
@@ -85,7 +92,9 @@ function Employees() {
                     <td class="px-6 py-4">
                         <div className="grid grid-cols-2 divide-x max-w-[60px]">
                             <div className='flex justify-center'>
-                              <svg className="h-4 w-4 fill-blue-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/><title><g>Edit</g></title></svg>
+                                <button onClick={() => setSelectedEmployee(employee)}>                                  
+                                  <svg onClick={handleChange} className="h-4 w-4 fill-blue-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/><title><g>Edit</g></title></svg>
+                                </button>
                             </div>
                             <div className='flex justify-center'>
                                 <button onClick={() => deleteEmployee(employee._id)}>

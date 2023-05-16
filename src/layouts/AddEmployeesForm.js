@@ -1,18 +1,31 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { add } from '../store/features/employees';
 import axios from 'axios';
 
-function AddEmployeesForm({ isVisible, onClose }) {
+function AddEmployeesForm({ isVisible, onClose, selectedEmployee }) {
     const dispatch = useDispatch()
-     
-    const initialState = {
+    let initialState = {
         email: '',
         firstName: '',
         lastName: '',
     }
   const [employeeData, setEmployeeData] = useState(initialState);
-    console.log('formdata', employeeData)
+  
+  console.log(initialState)
+
+  useEffect(() => {
+  setEmployeeData(selectedEmployee)
+  }, [selectedEmployee])
+  
+//   if (selectedEmployee._id) {
+    
+//    setEmployeeData(selectedEmployee)
+//        // dispatch(actions.apiCallBegan({
+//     //     url: `/employees/${selectedEmployeeId}`,
+//     //     onSuccess: 'employees/fetchEmployee',
+//     // }))
+//   }
 
   const handleInputChange = (e) => {
     const {name, value} = e.target;
@@ -22,24 +35,20 @@ function AddEmployeesForm({ isVisible, onClose }) {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(add(employeeData))   
+     
+    await axios.post('http://localhost:3000/employees', employeeData)
+    setEmployeeData(initialState)
+  }
 
-    // dispatch(add({
-    //     firstName: "Shwawn1",
-    //     lastName: "Mike",
-    //     email: "shawnb@gmail.com"           
-    //    })) 
-
-    dispatch(add(employeeData))
-    
-   await axios.post('http://localhost:3000/employees', employeeData)
-
-    console.log(employeeData)
-    // dispatch(add(employeeData))
+  const closeModal = () => {
+    onClose(false)
+    setEmployeeData(initialState)
   }
 
   return (
-    <div style={{ visibility:  !isVisible ? "hidden" : "visible"}} className="bg-green-500 border-red-500 fixed top-0 left-0 right-20 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">       
-        <div class="relative w-full max-w-2xl max-h-full">
+    <div style={{ visibility:  !isVisible ? "hidden" : "visible"}} className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">       
+        <div class="relative w-full max-w-2xl max-h-full mx-auto py-12">
         {/* <!-- Modal content --> */}
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             {/* <!-- Modal header --> */}
@@ -47,7 +56,7 @@ function AddEmployeesForm({ isVisible, onClose }) {
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                     Add Employee
                 </h3>
-                <button type="button" onClick={() => onClose(false)}  class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
+                <button type="button" onClick={closeModal}  class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                     <span class="sr-only">Close modal</span>
                 </button>
