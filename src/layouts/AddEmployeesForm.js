@@ -27,6 +27,7 @@ function AddEmployeesForm({ isVisible, onClose, selectedEmployee }) {
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log('submit')
     dispatch(add(employeeData))
 
     await axios.post('http://localhost:3000/employees', employeeData)
@@ -37,8 +38,9 @@ function AddEmployeesForm({ isVisible, onClose, selectedEmployee }) {
     onClose(false)
     setEmployeeData(initialState)
   }
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
     console.log('updatefun', employeeData)
+    e.preventDefault()
     dispatch(
       updateEmployee({
         url: `/employees/${employeeData._id}`,
@@ -49,10 +51,19 @@ function AddEmployeesForm({ isVisible, onClose, selectedEmployee }) {
       })
     )
 
-    await axios.put(
-      `http://localhost:3000/employees/${employeeData._id}`,
-      employeeData
-    )
+    if (employeeData._id) {
+      console.log('caught id....')
+      try {
+        await axios.put(
+          `http://localhost:3000/employees/${employeeData._id}`,
+          employeeData
+        )
+      } catch (e) {
+        console.error(e)
+      }
+    } else {
+      console.log('missed employee id')
+    }
 
     onClose(false)
   }
@@ -168,7 +179,7 @@ function AddEmployeesForm({ isVisible, onClose, selectedEmployee }) {
           <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
             <button
               onClick={handleUpdate}
-              type="submit"
+              type="button"
               form="addEmployee"
               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
