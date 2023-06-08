@@ -24,11 +24,11 @@ const employeeSlice = createSlice({
         },
         updateEmployee: (state, action) => {
             console.log('update', action)
-            // state.employees = state.employees.map(employee => employee._id === action.payload._id ? {
-            //     firstName: action.payload.firstName,
-            //     email: action.payload.email,
-            //     lastName: action.payload.lastName,
-            //  } : employee)
+            state.employees = state.employees.map(employee => employee._id === action.payload._id ? {
+                firstName: action.payload.firstName,
+                email: action.payload.email,
+                lastName: action.payload.lastName,
+             } : employee)
         },
         fetchEmployee: (state, action) => {
             console.log('single', action)
