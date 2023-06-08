@@ -7,6 +7,7 @@ function Projects() {
   const dispatch = useDispatch()
   const projects = useSelector((state) => state.projects)
   const [isVisible, setVisible] = useState(false)
+  const [selectedProject, setSelectedProject] = useState('')
 
   useEffect(() => {
     dispatch(
@@ -36,7 +37,11 @@ function Projects() {
     <div>
       <div id="main" className="bg-gray-100 mt-12 md:mt-2">
         <div className="min-h-full w-full bg-gray-600 text-white p-4">
-          <AddProjectForm isVisible={isVisible} onClose={setVisible} />
+          <AddProjectForm
+            isVisible={isVisible}
+            onClose={setVisible}
+            selectedProject={selectedProject}
+          />
           <div className="flex py-2">
             <h1>Project List</h1>
             {/* <!-- Modal toggle --> */}
@@ -81,7 +86,7 @@ function Projects() {
                     <td class="px-6 py-4">
                       <div className="grid grid-cols-2 divide-x max-w-[60px]">
                         <div className="flex justify-center">
-                          <button>
+                          <button onClick={() => setSelectedProject(project)}>
                             <svg
                               onClick={handleChange}
                               className="h-4 w-4 fill-blue-700"
