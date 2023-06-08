@@ -51,18 +51,13 @@ function AddEmployeesForm({ isVisible, onClose, selectedEmployee }) {
       })
     )
 
-    if (employeeData._id) {
-      console.log('caught id....')
-      try {
-        await axios.put(
-          `http://localhost:3000/employees/${employeeData._id}`,
-          employeeData
-        )
-      } catch (e) {
-        console.error(e)
-      }
-    } else {
-      console.log('missed employee id')
+    try {
+      await axios.put(
+        `http://localhost:3000/employees/${employeeData._id}`,
+        employeeData
+      )
+    } catch (e) {
+      console.error(e)
     }
 
     onClose(false)

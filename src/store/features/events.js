@@ -25,10 +25,23 @@ const eventSlice = createSlice({
         (event) => event._id !== action.payload._id
       )
     },
+    updateEvent: (state, action) => {
+      state.events = state.events.map((event) =>
+        event._id === action.payload.data._id
+          ? {
+              duration: action.payload.data.duration,
+              eventName: action.payload.data.eventName,
+              location: action.payload.data.location,
+              eventDate: action.payload.data.eventDate,
+              eventTime: action.payload.data.eventTime,
+            }
+          : event
+      )
+    },
   },
 })
 
 const { actions, reducer } = eventSlice
 
-export const { add, eventsReceived, deleteEvent } = actions
+export const { add, eventsReceived, deleteEvent, updateEvent } = actions
 export default reducer
