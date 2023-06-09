@@ -5,6 +5,7 @@ import AddClientForm from './AddClientForm'
 
 function Clients() {
   const [isVisible, setVisible] = useState(false)
+  const [selectedClient, setSelectedClient] = useState('')
 
   const dispatch = useDispatch()
   const clients = useSelector((state) => state.clients)
@@ -37,7 +38,11 @@ function Clients() {
     <div>
       <div id="main" className="bg-gray-100 mt-12 md:mt-2">
         <div className="min-h-full w-full bg-gray-600 text-white p-4">
-          <AddClientForm isVisible={isVisible} onClose={setVisible} />
+          <AddClientForm
+            isVisible={isVisible}
+            onClose={setVisible}
+            selectedClient={selectedClient}
+          />
           <div className="flex py-2">
             <h1>Client List</h1>
             {/* <!-- Modal toggle --> */}
@@ -75,7 +80,7 @@ function Clients() {
                     <td class="px-6 py-4">
                       <div className="grid grid-cols-2 divide-x max-w-[60px]">
                         <div className="flex justify-center">
-                          <button>
+                          <button onClick={() => setSelectedClient(client)}>
                             <svg
                               onClick={handleChange}
                               className="h-4 w-4 fill-blue-700"

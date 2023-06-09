@@ -22,9 +22,20 @@ const clientSlice = createSlice({
         (client) => client._id !== action.payload._id
       )
     },
+    updateClient: (state, action) => {
+      state.clients = state.clients.map((client) =>
+        client._id === action.payload.data._id
+          ? {
+              clientName: action.payload.data.clientName,
+              email: action.payload.data.email,
+              address: action.payload.data.address,
+            }
+          : client
+      )
+    },
   },
 })
 
 const { actions, reducer } = clientSlice
-export const { add, projectsReceived } = actions
+export const { add, projectsReceived, updateClient } = actions
 export default reducer

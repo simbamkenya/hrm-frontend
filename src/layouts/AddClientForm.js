@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { add } from '../store/features/clients'
+import { add, updateClient } from '../store/features/clients'
 import axios from 'axios'
 
-function AddClientForm({ isVisible, onClose }) {
+function AddClientForm({ isVisible, onClose, selectedClient }) {
   const dispatch = useDispatch()
+
+  console.log('setClient', selectedClient)
 
   const initialState = {
     email: '',
@@ -13,6 +15,9 @@ function AddClientForm({ isVisible, onClose }) {
     hourlyRate: '',
   }
   const [clientData, setClientData] = useState(initialState)
+  useEffect(() => {
+    setClientData(selectedClient)
+  }, [selectedClient])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -33,6 +38,31 @@ function AddClientForm({ isVisible, onClose }) {
 
     await axios.post('http://localhost:3000/clients', clientData)
     dispatch(add(clientData))
+  }
+
+  const handleUpdate = async (e) => {
+    console.log('updatefun', clientData)
+    e.preventDefault()
+    dispatch(
+      updateClient({
+        url: `/clients/${clientData._id}`,
+        method: 'put',
+        data: clientData,
+        onSuccess: 'clients/updateClient',
+        headers: { 'Content-Type': 'application/json' },
+      })
+    )
+
+    try {
+      await axios.put(
+        `http://localhost:3000/clients/${clientData._id}`,
+        clientData
+      )
+    } catch (e) {
+      console.error(e)
+    }
+
+    onClose(false)
   }
 
   return (
@@ -165,6 +195,14 @@ function AddClientForm({ isVisible, onClose }) {
           </div>
           {/* <!-- Modal footer --> */}
           <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+            <button
+              onClick={handleUpdate}
+              type="button"
+              form="addClient"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Update
+            </button>
             <button
               onClick={() => onClose(false)}
               type="submit"
